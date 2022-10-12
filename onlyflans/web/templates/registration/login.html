@@ -1,0 +1,50 @@
+{% extends 'base.html'%}
+{% block 'content' %}
+<div class="contanier">
+
+    <div class="col-12 col-md-6 offset-8 offset-md-3 mt-4 mb-4">
+        <h3 class="text-center"> Iniciar Sesion</h3>
+        <div>
+            <form method="post" action="{% url 'login'%}" class="text-center">
+                {% csrf_token%}
+                {% if form.errors%}
+                <p>Tu usuario o password estan equivocados. Intentalo nuevamente</p>
+                {%endif%}
+
+                {%if next%}
+                {%if user.is_authenticated%}
+                <p>Tu cuenta no tiene acceso a esta pagina, para continuar ingresar un login con acceso</p>
+                {%else%}
+                <p>Por favor logeate para ver la pagina</p>
+                {%endif%}
+                {%endif%}
+
+                <div class="mb-3 text-center">
+                    <label for="{{form.username.id_for_label}}" class="form-label">
+                        {{form.username.label_tag}}
+                    </label>
+                    <div>
+                        {{form.username}}
+                    </div>
+                    <label for="{{form.password.id_for_label}}" class="form-label">
+                        {{form.password.label_tag}}
+                    </label>
+                    <div>
+                        {{form.password}}
+                    </div>
+
+                </div>
+                <div class="text-center">
+                    <input type="submit" value="Iniciar sesión" class="btn btn-primary">
+                    <input type="hidden" name="next" value="{{ next }}" />
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+</div>
+{% endblock 'content' %}
